@@ -13,7 +13,7 @@ export default class DealDetail extends Component {
             this.imageXPos.setValue(gs.dx)
         },
         onPanResponderRelease:(evt,gs)=>{
-            console.log("released")
+            console.log("released",gs)
             
             if(Math.abs(gs.dx) > this.width * 0.4){
                 const direction=Math.sign(gs.dx)
@@ -69,7 +69,7 @@ export default class DealDetail extends Component {
   render() {
     const {deal} = this.state;
     return (
-      <View style={style.deal}>
+      <ScrollView style={style.deal}>
           <TouchableOpacity onPress={this.props.onBack}>
               <Text style={style.back}>Back</Text>
           </TouchableOpacity>
@@ -83,7 +83,7 @@ export default class DealDetail extends Component {
         <View>
             <Text style={style.title}>{deal.title}</Text>
         </View>
-        <ScrollView style={style.detail}>
+        <View style={style.detail}>
         <View style={style.footer}>
             <View style={style.info}>
                 <Text style={style.price}>{priceDisplay(deal.price)}</Text>
@@ -100,9 +100,9 @@ export default class DealDetail extends Component {
           <View style={style.description}>
         <Text>{deal.description}</Text>
         </View>
-        </ScrollView>
+        </View>
         <Button title="Buy this deal" onPress={this.openDealUrl}/>
-      </View>
+      </ScrollView>
     );
   }
 }

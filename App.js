@@ -10,7 +10,8 @@ export default class App extends Component {
   state={
     deals:[],
     currentDetailId:null,
-    dealsFromSearch:[]
+    dealsFromSearch:[],
+    activeSearchTerm:""
   }
 
   animateTitle=(direction=1)=>{
@@ -44,7 +45,7 @@ export default class App extends Component {
     if(searchTerm){
       dealsFromSearch = await ajax.fetchDealSearchResults(searchTerm)
     }
-    this.setState({dealsFromSearch})
+    this.setState({dealsFromSearch,activeSearchTerm:searchTerm})
   }
  
   setCurrentDeal=(dealId)=>{
@@ -80,7 +81,7 @@ export default class App extends Component {
     if(dealsToDisplay.length > 0){
       return(  
       <View style={style.main}>
-        <SearchBar searchDeals={this.searchDeals}/>
+        <SearchBar searchDeals={this.searchDeals} initialSearch={this.state.activeSearchTerm} />
         <DealList deals={dealsToDisplay} 
         onItemPress={this.setCurrentDeal}
         /> 
